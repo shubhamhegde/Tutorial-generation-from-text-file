@@ -9,6 +9,7 @@ class SignUp extends Component{
       username: '',
       email: '',
       password: '',
+      role: 'teacher',
       errors: {}
     }
 
@@ -17,6 +18,7 @@ class SignUp extends Component{
   }
 
   onChange(e) {
+    console.log([e.target.name], e.target.value)
     this.setState({ [e.target.name]: e.target.value })
   }
   onSubmit(e) {
@@ -25,7 +27,8 @@ class SignUp extends Component{
     const newUser = {
       username: this.state.username,
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      role: this.state.role
     }
 
     register(newUser).then(res => {
@@ -59,6 +62,15 @@ class SignUp extends Component{
                   placeholder="Enter email"
                   value={this.state.email}
                   onChange={this.onChange}/>
+              </div>
+              <div className="form-group">
+                <label htmlFor="role">Role</label>
+                <select className="form-control"
+                  name="role" id="cars" placeholder="Select Role" value={this.state.role}
+                  onChange={this.onChange}>
+                  <option value="teacher" defaultChecked>Teacher(Creator)</option>
+                  <option value="student">Student(Subscriber)</option>
+                </select>
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>

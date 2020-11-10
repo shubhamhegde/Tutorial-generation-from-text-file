@@ -12,8 +12,8 @@ def processing(text):
 
 
   '''CREATING FREQUENCY TABLE'''
-  stopWords = set(stopwords.words("english"))
-
+  stopWords = stopwords.words("english")
+  stopWords.append("i.e.")
   #print(stopWords)
 
   import nltk

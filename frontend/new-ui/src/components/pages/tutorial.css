@@ -1,15 +1,15 @@
-heading{
+.heading{
     display: flex;
     flex-direction: row;
-    visibility: hidden;
-    display: none;
+    /* visibility: hidden; */
+    /* display: none; */
     
   }
   .container1 {
-    /* display: flex; */
+    display: flex;
     /* flex-direction: row; */
-    visibility: hidden;
-    display: none;
+    /* visibility: hidden; */
+    /* display: none; */
     margin-top: auto;
     width: fit-content;
     font-size: 3vh;
@@ -19,8 +19,8 @@ heading{
   .left-col {
     flex: 1;
     /* display: flex; */
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    /* align-items: center; */
     background: #aaa;
     overflow-y: auto;
     line-height: 1.2;
@@ -34,13 +34,13 @@ heading{
     align-items: center;
     background: #aaa;
     line-height: 1.3;
-    visibility: hidden;
+    /* visibility: hidden; */
   }
   .center-col {
     flex: 1;
     /* display: flex; */
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
     background: #aaa;
     overflow-y: auto;
     line-height: 1.2;
@@ -54,6 +54,6 @@ heading{
     justify-content: center;
     align-items: center;
     color: black;
-    visibility: hidden;
+    /* visibility: hidden; */
   }
   

@@ -5,10 +5,12 @@ import Tutorial from './Tutorial';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Profile from './Profile';
 import Assessment from './Assessment';
+import Upload from './Upload';
+import StudentAssessment from './StudentAssessment';
 export default function Products() {
   return (
   	 <div class="row">
-	    <div class="col-2">
+	    <div class="col-2" id="hello">
 	    <br/>
 	      <ul className='cards__items'>
             <CardItem
@@ -35,9 +37,10 @@ export default function Products() {
 	    <div class="col-8">
       <center>
       <Switch>
-          <Route path='/tutorial_gen' component={Tutorial} />
+          <Route path='/tutorial_gen' component={Upload} />
           <Route path='/profile' component={Profile} />
           <Route path='/assessments' component={Assessment} />
+          <Route path='/student_assessments' component={StudentAssessment} />
         </Switch>
 	      <hr/>
         </center>

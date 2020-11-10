@@ -1,41 +1,42 @@
 import React, { Component } from 'react'
-
+import './assessment.css';
 class Assessment extends Component {
     constructor(props) {
         super(props);
     
          this.state = {
            boolean_question: {},
-           mcq:{}
+           mcq:this.props.location.data
+          
         };
     
-        this.gen_questions = this.gen_questions.bind(this);
+        console.log(this.state.mcq)
         this.onSubmit=this.onSubmit.bind(this);
+        this.shuffle=this.shuffle.bind(this);
       }
       componentDidMount() {
-        this.gen_questions();
+        
+        //this.gen_questions();
      }
     
-      gen_questions(){
-        // ev.preventDefault();
-        fetch('http://localhost:5000/assessments', {
-      method: 'POST',
-      body:JSON.stringify({'data':this.props.location.data}),
-      headers: new Headers({
-        "content-type": "application/json"
-      }),
-    }).then((response) => {
-      response.json().then((body) => {
-        this.setState({ boolean_question: body.bool, mcq:body.mcq});
-        console.log(this.state);
-        // document.getElementById("text").innerHTML=body.text;
-        // document.getElementById("summary").innerHTML=body.summary;
-        // document.getElementsByClassName("heading")[0].style.visibility="visible";
-        // document.getElementsByClassName("container1")[0].style.visibility="visible";
-        // document.getElementsByClassName("heading")[0].style.display="flex";
-        // document.getElementsByClassName("container1")[0].style.display="flex";
-      });
-    });
+  shuffle(array) {
+    console.log("hi");
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
   }
   onSubmit(e) {
     e.preventDefault()
@@ -57,30 +58,34 @@ class Assessment extends Component {
   }
 
   render() {
+    for(var i=0;i<Object.keys(this.state.mcq).length;i++){
+      console.log("hello");
+      this.state.mcq[i]["options"]=this.shuffle(this.state.mcq[i]["options"]);
+    }
     //   this.gen_questions()
     return (
     // <form noValidate onSubmit={this.onSubmit}>
     <div>
-      <form noValidate onSubmit={this.onSubmit} name="qa">
-      {
+      <form noValidate name="qa">
+        
+      { 
         Object.keys(this.state.mcq).map((key, index) => ( 
-            <div className="jumbotron" key={index}>
-           <div className="col-sm-8 mx-auto">
-          <h4 className="text-body">{index+1}) {this.state.mcq[key]["question_statement"]}</h4> 
-
+            <div className="card card-body no-gutters" key={index} style={{width:"100%",backgroundColor:"#A9A9A9", marginBottom:"0 !important", height:"10px", padding:"0 !important"}}>
+           <div className="col-sm-10 mx-auto">
+          <h3 className="card-body">{index+1}) {this.state.mcq[key]["question_statement"]}</h3> 
           {
           this.state.mcq[key]["options"].map((option,index1) => (
-            <div style={{color: 'black', textAlign: 'left', fontSize:'3vh' }}>
-              <input type="radio" name={index} value={option}/>  {option}
+            <div style={{color: option===this.state.mcq[key]["answer"]? 'green': 'black', textAlign: 'left', fontSize:'4vh' }}>
+              <input type="radio" name={index} value={option} disabled="True"/>  {option}
             </div>)
           )}
           </div>
           </div>
         ))
       }
-    <input type="submit" className="btn-secondary btn-lg"/>
+ 
+    {/* <input type="submit" className="btn-secondary btn-lg" disabled="True"/> */}
     </form>
-    <hr></hr>
     <div id="score" style={{color: 'black', textAlign: 'center', fontSize:'6vh' }}></div>
     </div>
     )

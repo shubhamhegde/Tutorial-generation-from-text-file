@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Component } from 'react';
 import { Link, withRouter } from 'react-router-dom'
-
+import jwt_decode from 'jwt-decode'
 import './Navbar.css';
 
 
@@ -12,6 +12,7 @@ class Navbar extends Component {
   }
 
 render() {
+  //console.log(jwt_decode(localStorage.usertoken).identity.role)
   
   // const [click, setClick] = useState(false);
   // const [button, setButton] = useState(true);
@@ -59,7 +60,7 @@ render() {
 {/* {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>} */}
 </div>
 )
-  const userLink=(
+  const teacherLink=(
     <div>
     <ul className= 'nav-menu'>
     <li className='nav-item'>
@@ -92,10 +93,35 @@ render() {
   {/* {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>} */}
   </div>
   )
+  const stuLink=(
+    <div>
+    <ul className= 'nav-menu'>
+    <li className='nav-item'>
+      <Link to='/' className='nav-links' >
+        Home
+      </Link>
+    </li>
+    <li className='nav-item'>
+      <Link
+        to='/profile'
+        className='nav-links'
+      >
+        User
+      </Link>
+    </li>
+    <li>
+    <a href="" onClick={this.logOut.bind(this)} className="nav-links">
+            Logout
+          </a>
+    </li>
+  </ul>
+  {/* {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>} */}
+  </div>
+  )
   return (
     <>
       <nav className='navbar'>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRZIEf2Jysct2G9UTHJvTY3aOk6HZdWutuy4A&usqp=CAU" height="60px"/>
+        <img className='imgname' src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRZIEf2Jysct2G9UTHJvTY3aOk6HZdWutuy4A&usqp=CAU" height="60px"/>
 
         <div className='navbar-container'>
           <Link to='/' className='navbar-logo' >
@@ -105,7 +131,7 @@ render() {
           <div className='menu-icon' >
             <i className='fas fa-bars' />
           </div>
-          {localStorage.usertoken ? userLink : loginRegLink}
+          {localStorage.usertoken ? (jwt_decode(localStorage.usertoken).identity.role==="teacher"?teacherLink:stuLink)  : loginRegLink}
         </div>
       </nav>
     </>
